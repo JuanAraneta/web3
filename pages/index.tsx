@@ -6,14 +6,19 @@ export default function Home() {
   const { active, activate, deactivate, account, error, chainId } =
     useWeb3React();
 
-  useEffect(() => {}, []);
-
-  const handleConnect = useCallback(() => {
+  const connect = useCallback(() => {
     activate(connector);
     localStorage.setItem("previouslyConnected", "true");
-  }, []);
+  }, [activate]);
 
-  const handleDisconnect = () => {};
+  useEffect(() => {
+    if (localStorage.getItem("previouslyConnected") === "true") connect();
+  }, [connect]);
+
+  const handleDisconnect = () => {
+    deactivate();
+    localStorage.setItem("previouslyConnected", "null");
+  };
 
   return (
     <div>
