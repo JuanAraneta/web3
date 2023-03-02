@@ -15,7 +15,7 @@ export default function Home() {
     if (localStorage.getItem("previouslyConnected") === "true") connect();
   }, [connect]);
 
-  const handleDisconnect = () => {
+  const disconnect = () => {
     deactivate();
     localStorage.setItem("previouslyConnected", "null");
   };
@@ -23,7 +23,15 @@ export default function Home() {
   return (
     <div>
       <h1>Web 3 at Dept</h1>
-      <button>Sign in with Metamask</button>
+      {active ? (
+        <>
+          <button onClick={disconnect}>Desloguearnos de Metamask</button>
+          <p>Tu address es {account}</p>
+          <p>Estas conectacto a la chain con Id:{chainId}</p>
+        </>
+      ) : (
+        <button onClick={connect}>Coenctarnos a Metamask</button>
+      )}
     </div>
   );
 }
